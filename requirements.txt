@@ -1,0 +1,11 @@
+# На Kaggle torch уже установлен. После первого успешного запуска сделайте `pip freeze`
+# и зафиксируйте точные версии (на T4 bitsandbytes/transformers бывают несовместимы).
+transformers>=4.46
+datasets>=2.20
+peft>=0.13
+accelerate>=0.34
+bitsandbytes>=0.43
+lm-eval>=0.4.5
+pyyaml
+pandas
+matplotlib

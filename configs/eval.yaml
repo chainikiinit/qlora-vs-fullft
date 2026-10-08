@@ -1,0 +1,10 @@
+# Оценка дообученных моделей через lm-evaluation-harness.
+# Названия задач проверьте в вашей версии: `lm_eval --tasks list`.
+batch_size: auto
+dtype: float16
+tasks:
+  - {name: gsm8k,         num_fewshot: 0, limit: null}   # целевое качество (exact match по итоговому числу)
+  - {name: arc_easy,      num_fewshot: 0, limit: null}   # забывание общих навыков
+  - {name: arc_challenge, num_fewshot: 0, limit: null}
+  - {name: hellaswag,     num_fewshot: 0, limit: 2000}
+  - {name: mmlu,          num_fewshot: 0, limit: 50}     # limit применяется к каждому из 57 предметов

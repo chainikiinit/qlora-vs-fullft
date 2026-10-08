@@ -1,0 +1,11 @@
+# Для исходной модели добавлен 5-shot GSM8K: без него базовая модель
+# может не выдавать формат "#### N", и strict-match занизит её результат.
+batch_size: auto
+dtype: float16
+tasks:
+  - {name: gsm8k,         num_fewshot: 0, limit: null}
+  - {name: gsm8k,         num_fewshot: 5, limit: null}
+  - {name: arc_easy,      num_fewshot: 0, limit: null}
+  - {name: arc_challenge, num_fewshot: 0, limit: null}
+  - {name: hellaswag,     num_fewshot: 0, limit: 2000}
+  - {name: mmlu,          num_fewshot: 0, limit: 50}

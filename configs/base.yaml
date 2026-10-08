@@ -1,0 +1,37 @@
+# Общие настройки. Метод (full | lora | qlora) задаётся файлом из configs/method/.
+# Любое значение можно переопределить в командной строке: --set train.lr=2e-4 seed=1
+seed: 0                       # seed обучения: инициализация LoRA, порядок батчей
+
+paths:
+  output_dir: outputs         # чекпоинты и адаптеры (на Kaggle: /kaggle/working/outputs)
+  results_dir: results        # метрики и конфиги прогонов (коммитятся в git)
+
+model:
+  name: Qwen/Qwen2.5-0.5B
+  attn_implementation: sdpa   # на T4 нет FlashAttention-2
+
+data:
+  train_dataset: gsm8k        # gsm8k | metamathqa
+  train_size: null            # null = весь train после отделения val
+  val_size: 500
+  data_seed: 1234             # фиксирует разбиение и подвыборку, НЕ меняется между seed обучения
+  max_seq_len: 512
+  prompt_template: "Question: {question}\nAnswer:"   # совпадает с форматом lm-eval gsm8k
+  strip_calc_annotations: false
+
+train:
+  precision: fp16             # T4 не поддерживает bf16
+  epochs: 3
+  batch_size: 4               # при OOM уменьшайте его и увеличивайте grad_accum
+  grad_accum: 8               # эффективный батч = 32
+  lr: 1.0e-5                  # переопределяется в configs/method/*.yaml
+  scheduler: cosine
+  warmup_ratio: 0.03
+  weight_decay: 0.0
+  max_grad_norm: 1.0
+  optim: adamw_torch          # одинаковый для всех методов, чтобы не смешивать эффекты
+  gradient_checkpointing: true
+  logging_steps: 10
+  eval_steps: 100
+  save_total_limit: 2
+  report_to: none

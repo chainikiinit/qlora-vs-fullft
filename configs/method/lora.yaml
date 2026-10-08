@@ -1,0 +1,8 @@
+method: lora
+train:
+  lr: 2.0e-4          # TODO: уточнить по результатам lr-sweep
+lora:
+  r: 16
+  alpha: null         # null -> alpha = 2 * r
+  dropout: 0.05
+  target_modules: all-linear   # или [q_proj, k_proj, v_proj, o_proj]

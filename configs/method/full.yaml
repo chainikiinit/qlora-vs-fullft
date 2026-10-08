@@ -1,0 +1,4 @@
+method: full
+train:
+  lr: 1.0e-5          # TODO: уточнить по результатам lr-sweep
+  save_total_limit: 1 # чекпоинт полного FT с оптимизатором ~6 ГБ, а на Kaggle лимит ~20 ГБ
